@@ -17,10 +17,11 @@ const config = {
   type: Phaser.AUTO,
   width: 1280,
   height: 600,
+  //backgroundColor: 0x5c95fc,
   physics: {
     default: 'arcade',
     arcade: {
-    debug: true,
+   
     }
   },
   scene: [new Preload(SHARED_CONFIG), new Play(SHARED_CONFIG)]
