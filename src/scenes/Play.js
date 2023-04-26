@@ -6,6 +6,8 @@ import HealthBar from "../health/HealthBar";
 import EmptyBar from "../health/emptyBar";
 import Spikey from "../entities/Spikey";
 import Coin from "../entities/Coin";
+import BlinkingCoin from "../entities/BlinkingCoin";
+
 
 
 let hits = 0;
@@ -40,6 +42,11 @@ class Play extends Phaser.Scene {
         const gombaSpawn = map.getObjectLayer('gomba_spawn')
         const coinSpawns = map.getObjectLayer('collectables')
         const coins = this.createCoins(coinSpawns);
+        this.scoreText = this.add.text(380, 125, 'X ' + this.score, {fontSize: '12px', fill: '#FFF', fontFamily: 'PressStart2P'})
+        this.scoreText.setScrollFactor(0,0);  
+        const blinkingCoin = new BlinkingCoin(this, 360, 138);
+        blinkingCoin.setScrollFactor(0,0)
+
 
        
        
@@ -71,6 +78,7 @@ class Play extends Phaser.Scene {
             this.physics.add.overlap(this.player, coin, () => {
                 coin.disableBody(true, true)
                 this.score++;
+                this.scoreText.setText('X ' + this.score);
                 console.log('coins collected: ' + this.score)
             })
         })
@@ -224,6 +232,10 @@ class Play extends Phaser.Scene {
     onCollect() {
         console.log('bunny is overlaping with coin')
     }
+
+ 
+        
+    
 
 
 

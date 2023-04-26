@@ -17,6 +17,7 @@ class Preload extends Phaser.Scene {
         this.load.atlas('throw', './assets/player/throwsheet.png', './assets/player/throwsheet.json');
         this.load.atlas('spikey', './assets/enemies/spikesheet.png', './assets/enemies/spikesheet.json');
         this.load.atlas('coin', './assets/collectables/coinsheet.png', './assets/collectables/coinsheet.json');
+        this.load.atlas('blinkingCoin', './assets/collectables/blinkingCoinSheet.png', './assets/collectables/blinkingCoinSheet.json');
         this.load.image('heart', './assets/heart.png')
         this.load.image('emptyHeart', './assets/emptyHeart.png')
         this.load.image('rock', './assets/weapons/Rock1.png')
