@@ -3,6 +3,8 @@ import Phaser from "phaser";
 class Preload extends Phaser.Scene {
     constructor(config) {
             super('Preload')
+
+            this.config = config;
     }
 
     preload() {
@@ -24,12 +26,17 @@ class Preload extends Phaser.Scene {
         this.load.spritesheet('hit-sheet', './assets/weapons/hit_effect_sheet.png', {
             frameWidth: 32, frameHeight: 32,
         });
+        this.load.image('bg_night', './assets/backgrounds/pixelsky.png');
+        this.load.image('menu_bg', './assets/backgrounds/smallbanner.jpg');
+        this.load.audio('coin_pickup', './assets/audio/coin_pickup.wav')
+        this.load.audio('jump_sound', './assets/audio/jump.wav')
+        this.load.audio('rockThrow', './assets/audio/popsound.wav')
 
     }
 
     create() {
-        this.scene.start('Play')
-
+        this.scene.start('Menu')
+        
     }
 
 }

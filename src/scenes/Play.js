@@ -7,6 +7,8 @@ import EmptyBar from "../health/emptyBar";
 import Spikey from "../entities/Spikey";
 import Coin from "../entities/Coin";
 import BlinkingCoin from "../entities/BlinkingCoin";
+import EventEmitter from "../events/EventEmitter";
+
 
 
 
@@ -29,6 +31,10 @@ class Play extends Phaser.Scene {
  
 
     create() {
+         this.background = this.add.tileSprite(0, 400, this.config.width, 250, "bg_night")
+         .setOrigin(0, 0)
+         .setScrollFactor(0, 1)
+
         this.score = 0;
         //Get map and tilesets:
         const map = this.make.tilemap({key: 'map'})
@@ -46,7 +52,10 @@ class Play extends Phaser.Scene {
         this.scoreText.setScrollFactor(0,0);  
         const blinkingCoin = new BlinkingCoin(this, 360, 138);
         blinkingCoin.setScrollFactor(0,0)
-
+        this.createGameEvents();
+        
+       
+        
 
        
        
@@ -76,6 +85,7 @@ class Play extends Phaser.Scene {
 
         coins.forEach(coin => {
             this.physics.add.overlap(this.player, coin, () => {
+                this.createCoinSound();
                 coin.disableBody(true, true)
                 this.score++;
                 this.scoreText.setText('X ' + this.score);
@@ -121,6 +131,13 @@ class Play extends Phaser.Scene {
 
     update() {
   
+    }
+
+    createGameEvents() {
+        EventEmitter.on('PLAYER_LOSE', () => {
+            this.scene.stop();
+            this.scene.start('GameOver')
+        })
     }
 
     setupFollowCamera(player) {
@@ -212,16 +229,6 @@ class Play extends Phaser.Scene {
       
     }
 
-/* 
-    createCollectables(collectableLayer) {
-        const collectables = this.physics.add.staticGroup()
-
-        collectableLayer.objects.forEach(coin => {
-            collectables.get(new Coin(this, coin.x, coin.y))
-        });
-
-        return collectables
-    } */
 
     createCoins(collectablesLayer) {
         return collectablesLayer.objects.map(spawnPoint => {
@@ -229,8 +236,8 @@ class Play extends Phaser.Scene {
         })
     }
 
-    onCollect() {
-        console.log('bunny is overlaping with coin')
+    createCoinSound() {
+        this.sound.add('coin_pickup', {loop: false, volume: 0.2}).play();
     }
 
  

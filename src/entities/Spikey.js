@@ -64,7 +64,7 @@ class Spikey extends Phaser.Physics.Arcade.Sprite {
     }
 
     update(time, delta) {
-     
+        if(!this.active) {return}
         this.play('spikeywalk', true)
 
       

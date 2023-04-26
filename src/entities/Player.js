@@ -1,6 +1,7 @@
 import Phaser from "phaser";
 import Projectile from "../weapons/Projectile";
 import Projectiles from "../weapons/Projectiles";
+import EventEmitter from "../events/EventEmitter";
 
 class Player extends Phaser.Physics.Arcade.Sprite {
 
@@ -28,6 +29,8 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.lastDirection = Phaser.Physics.Arcade.FACING_RIGHT;
         this.keyboard = this.scene.input.keyboard;
         this.qKey = this.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
+        this.playerHealth = 30;
+        
 
         this.scene.anims.create({
             key: 'walk',
@@ -71,11 +74,16 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
     update() {
-        if(this.hasBeenHit) {
+        if(this.hasBeenHit || !this.body) {
             return
         }
 
      
+         if(this.y > 700) {
+            
+            EventEmitter.emit('PLAYER_LOSE')
+        }
+ 
         const {left, right, space, up, Q} = this.cursors;
       
        
@@ -89,6 +97,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
                     this.play('throw', true)
             }
             this.play('throw', true)
+       
         } else if(left.isDown) {
             this.lastDirection = Phaser.Physics.Arcade.FACING_LEFT;
             this.setVelocityX(-150)
@@ -166,16 +175,26 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
     takesHit() {
+        
         if(this.cantTakeHit) {
             return
         }
         if(this.hasBeenHit) {
             return;
         }
+
+        this.playerHealth-=10;
+
+        if(this.playerHealth <= 0) {
+            EventEmitter.emit('PLAYER_LOSE')
+            return
+        }
+
         this.hasBeenHit = true;
         this.playerHits++;
         this.bounceOff(); 
-
+       
+        
         this.scene.time.addEvent({
             delay: 900,
             callback: () => {

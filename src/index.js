@@ -1,6 +1,8 @@
 import Phaser from "phaser";
 import Play from "./scenes/Play";
 import Preload from "./scenes/Preload";
+import Menu from "./scenes/Menu";
+import GameOver from "./scenes/GameOver";
 
 const MAP_WIDTH = 1600;
 
@@ -17,14 +19,15 @@ const config = {
   type: Phaser.AUTO,
   width: 1280,
   height: 600,
-  //backgroundColor: 0x5c95fc,
+  backgroundColor: 0x1e1753,
+ // backgroundColor: 0x588cee,
   physics: {
     default: 'arcade',
     arcade: {
    
     }
   },
-  scene: [new Preload(SHARED_CONFIG), new Play(SHARED_CONFIG)]
+  scene: [new Preload(SHARED_CONFIG), new Menu(SHARED_CONFIG),  new Play(SHARED_CONFIG), new GameOver(SHARED_CONFIG)]
 };
 
 new Phaser.Game(config);

@@ -15,6 +15,7 @@ class Projectiles extends Phaser.Physics.Arcade.Group {
         })
 
         this.timeFromLastProjectile = null;
+        this.throwSound = this.scene.sound.add('rockThrow', {volume: 0.5})
     }
 
 
@@ -44,6 +45,7 @@ class Projectiles extends Phaser.Physics.Arcade.Group {
 
         projectile.fire(centerX, center.y)
         this.timeFromLastProjectile = getTimeStamp();
+        this.throwSound.play(); 
     }
 
 }

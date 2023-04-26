@@ -78,6 +78,7 @@ class Gomba extends Phaser.Physics.Arcade.Sprite {
     }
 
     update(time, delta) {
+        if(!this.active) {return}
         if(this.gombaDead > 0) {
             return
         } else {
