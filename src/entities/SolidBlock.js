@@ -1,9 +1,9 @@
 import Phaser from "phaser";
 
-class Questionbox extends Phaser.Physics.Arcade.Sprite {
+class SolidBlock extends Phaser.Physics.Arcade.Sprite {
 
     constructor(scene, x, y) {
-        super(scene, x, y, 'question');
+        super(scene, x, y, 'solidblock');
 
         scene.add.existing(this);
         scene.physics.add.existing(this);
@@ -16,7 +16,7 @@ class Questionbox extends Phaser.Physics.Arcade.Sprite {
     }
 
     init() {
-        this.holdCoins = 5;
+        this.hits = 5;
         this.setScale(1.2)
         this.setOrigin(0.5, 1)
         this.setImmovable();
@@ -32,19 +32,21 @@ class Questionbox extends Phaser.Physics.Arcade.Sprite {
     }
 
 
-    releaseCoin() {
+    hitBlock() {
+        this.hits--;
+          
+        if(this.hits < 0) {
+           return
+           
+        }
+
        this.y -= 5.5;
        setTimeout(() => {
         this.y += 5.5;
        }, 120)
      
-        this.holdCoins--;
-        if(this.holdCoins <= 0) {
-            this.setActive(false)
-            this.setVisible(false)
-           
-        }
-        console.log(this.holdCoins);
+     
+       
     }
 
 
@@ -57,4 +59,4 @@ class Questionbox extends Phaser.Physics.Arcade.Sprite {
 
 }
 
-export default Questionbox;
+export default SolidBlock;

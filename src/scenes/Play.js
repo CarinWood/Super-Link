@@ -10,11 +10,14 @@ import BlinkingCoin from "../entities/BlinkingCoin";
 import EventEmitter from "../events/EventEmitter";
 import ClingVine from "../entities/Clingvine";
 import Questionbox from "../entities/Questionbox";
+import SolidBlock from "../entities/SolidBlock";
+import Mushroom from "../entities/Mushroom";
 
 
 
 
 let hits = 0;
+let coinHits = 5;
 const healthX = 240;
 const healthY = 130
 
@@ -28,6 +31,8 @@ class Play extends Phaser.Scene {
         this.healthBar2 = null;
         this.healthBar3 = null;
         this.healthBar4 = null;
+        this.questionbox = null;
+        this.hiddenCoin = null;
     }
 
 
@@ -43,6 +48,7 @@ class Play extends Phaser.Scene {
          .setScrollFactor(0, 1)
 
         this.score = 0;
+        this.alreadyJumped === false
         //Get map and tilesets:
         const map = this.make.tilemap({key: 'map'})
         const tileset1 = map.addTilesetImage('OverWorld', 'tiles-1')
@@ -65,7 +71,8 @@ class Play extends Phaser.Scene {
         square.fillStyle(0x000000);
         square.fillRect(1500, 560, 40, 50);
         this.clingvine = new ClingVine(this, 871, 290)
-
+        this.mushroom = new Mushroom(this, 285, 450).setVisible(false)
+        this.secretBlock = new SolidBlock(this, 285, 450).setVisible(false);
         
 
        
@@ -84,16 +91,17 @@ class Play extends Phaser.Scene {
  
         //Create player and enemies:
         this.player = new Player(this, playerZones.start.x, playerZones.start.y).setScale(1.2)
-        this.questionbox = new Questionbox(this, 1092, 110);
+        this.questionbox = new Questionbox(this, 1093, 100).setDepth(4)
+        this.hiddenCoin = new Coin(this, 1093, 100).setDepth(1)
+        this.solidblock = new SolidBlock(this, 1093, 100).setDepth(3);
+        //this.solidblock = this.add.image(1093, 90, 'solidblock').setScale(1.1).setDepth(1)
         this.gomba = this.createGomba(gombaSpawn);
         this.flower1 = new Flower(this, FlowerZone1.start.x, FlowerZone1.start.y) ;
         this.flower2 = new Flower(this, flowerZone2.start.x, flowerZone2.start.y) ;
         this.displayHealth(healthX, healthY, hits )
         this.spikey = new Spikey(this, spikeyZone.start.x, spikeyZone.start.y)
-       
   
         //colliders:
-
         platforms.setCollisionByExclusion(-1, true)
    
         coins.forEach(coin => {
@@ -102,7 +110,7 @@ class Play extends Phaser.Scene {
                 coin.disableBody(true, true)
                 this.score++;
                 this.scoreText.setText('X ' + this.score);
-                console.log('coins collected: ' + this.score)
+             
             })
         })
         this.physics.add.collider(this.player, platforms)
@@ -130,12 +138,25 @@ class Play extends Phaser.Scene {
         this.physics.add.collider(this.player, this.flower2, this.onPlayerCollision, null, this)
         this.physics.add.collider(this.player, this.spikey, this.onPlayerCollision, null, this)
         this.physics.add.collider(this.player, this.gomba, this.onPlayerCollision, null, this)
+        this.physics.add.collider(this.player, this.secretBlock, this.revealShroom, null, this)
+        this.physics.add.collider(this.mushroom, platforms)
+        this.physics.add.collider(this.mushroom, this.secretBlock)
+        
+       
+   
+   
         
         this.questionCollider = this.physics.add.collider(this.player, this.questionbox, this.smashQuestionBox, null, this)
  
        
         this.physics.add.overlap(this.player, this.clingvine, this.onVineOverlap, null, this);
-      
+        this.physics.add.overlap(this.player, this.mushroom, () => {
+            this.createShroomSound();
+            this.mushroom.disableBody(true, true)
+            this.mushroom.setVisible(false)
+            this.mushroom.destroy();
+        });
+     
 
 
 
@@ -154,17 +175,46 @@ class Play extends Phaser.Scene {
 
         this.createEndOfLevel(playerZones.end, this.player);
        
+      
    
 
     }
 
     update() {
-  
+        /* const isColliding = this.physics.overlap(this.player, this.questionbox);
+
+        const overlapY = this.physics.collideY(this.player, this.questionbox);
+        const isCollidingBottom = overlapY > 0;
+    
+        if (isColliding && isCollidingBottom) {
+       
+            this.smashQuestionBox();
+        } */
+    }
+    
+    revealShroom() {
+      
+    
+        this.secretBlock.setVisible(true);
+        this.mushroom.setVisible(true);
+        this.mushroom.showShroom()
+
     }
 
+    
+
     smashQuestionBox() {
+        
+        coinHits--;
+        if(coinHits < 0) {
+            return
+        }
+        this.score++;
+        this.scoreText.setText('X ' + this.score);
+        this.solidblock.hitBlock()
         this.createCoinSound();
         this.questionbox.releaseCoin();
+        this.hiddenCoin.jumpCoin();
         
     }
  
@@ -272,13 +322,20 @@ class Play extends Phaser.Scene {
         })
     }
 
+    
     createCoinSound() {
         this.sound.add('coin_pickup', {loop: false, volume: 0.2}).play();
     }
-
+    createShroomSound() {
+        this.sound.add('pick_shroom_sound', {loop: false, volume: 0.5}).play();
+    }
     onVineOverlap() {
         this.player.climb();
     }
+
+ 
+
+   
     
         
     

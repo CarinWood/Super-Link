@@ -18,6 +18,7 @@ class Coin extends Phaser.Physics.Arcade.Sprite {
     init() {
         this.setScale(1.2)
         this.setOrigin(0.5, 1)
+        this.coinTimes = 5;
 
 
         this.scene.anims.create({
@@ -43,6 +44,20 @@ class Coin extends Phaser.Physics.Arcade.Sprite {
     
    
     }
+
+    jumpCoin() {
+        this.coinTimes--;
+        if(this.coinTimes < 0) {
+            this.setVisible(false);
+         
+          
+        }
+        this.y -= 40;
+        setTimeout(() => {
+            this.y += 40
+        }, 120)
+    }
+
 
 
 

@@ -21,6 +21,7 @@ class Preload extends Phaser.Scene {
         this.load.atlas('spikey', './assets/enemies/spikesheet.png', './assets/enemies/spikesheet.json');
         this.load.atlas('coin', './assets/collectables/coinsheet.png', './assets/collectables/coinsheet.json');
         this.load.image('question', './assets/collectables/questionbox.png');
+        this.load.image('solidblock', './assets/collectables/solidblock.png');
         this.load.atlas('blinkingCoin', './assets/collectables/blinkingCoinSheet.png', './assets/collectables/blinkingCoinSheet.json');
         this.load.atlas('climb', './assets/player/climb.png', './assets/player/climb.json');
         this.load.image('heart', './assets/heart.png')
@@ -37,6 +38,9 @@ class Preload extends Phaser.Scene {
         this.load.audio('coin_pickup', './assets/audio/coin_pickup.wav')
         this.load.audio('jump_sound', './assets/audio/jump.wav')
         this.load.audio('rockThrow', './assets/audio/popsound.wav')
+        this.load.audio('pick_shroom_sound', './assets/audio/pickshroom.wav')
+        this.load.image('mariostar', './assets/collectables/mariostar.png')
+        this.load.image('greenshroom', './assets/collectables/greenshroom.png')
 
     }
 
