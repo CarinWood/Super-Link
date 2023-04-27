@@ -8,6 +8,8 @@ import Spikey from "../entities/Spikey";
 import Coin from "../entities/Coin";
 import BlinkingCoin from "../entities/BlinkingCoin";
 import EventEmitter from "../events/EventEmitter";
+import ClingVine from "../entities/Clingvine";
+import Questionbox from "../entities/Questionbox";
 
 
 
@@ -28,6 +30,11 @@ class Play extends Phaser.Scene {
         this.healthBar4 = null;
     }
 
+
+    preload() {
+        this.load.image('bg_night', './assets/backgrounds/pixelsky.png');
+    }
+
  
 
     create() {
@@ -40,6 +47,7 @@ class Play extends Phaser.Scene {
         const map = this.make.tilemap({key: 'map'})
         const tileset1 = map.addTilesetImage('OverWorld', 'tiles-1')
         const tileset2 = map.addTilesetImage('Castle', 'tiles-2')
+        const tileset3 = map.addTilesetImage('clingvine', 'tiles-3')
         const playerZones = this.getPlayerZones(map.getObjectLayer('player_zones'));
         const FlowerZone1 = this.getFlowerZone1(map.getObjectLayer('enemy_spawns'));
         const flowerZone2 = this.getFlowerZone2(map.getObjectLayer('flower2_spawn'))
@@ -53,8 +61,11 @@ class Play extends Phaser.Scene {
         const blinkingCoin = new BlinkingCoin(this, 360, 138);
         blinkingCoin.setScrollFactor(0,0)
         this.createGameEvents();
-        
-       
+        const square = this.add.graphics();
+        square.fillStyle(0x000000);
+        square.fillRect(1500, 560, 40, 50);
+        this.clingvine = new ClingVine(this, 871, 290)
+
         
 
        
@@ -67,11 +78,13 @@ class Play extends Phaser.Scene {
         
         //Get layers:
         const environment = map.createStaticLayer('environment', [tileset1, tileset2]);
-        const platforms = map.createStaticLayer('platforms', tileset1);
+        const platforms = map.createStaticLayer('platforms', [tileset1]);
+    
        
  
         //Create player and enemies:
         this.player = new Player(this, playerZones.start.x, playerZones.start.y).setScale(1.2)
+        this.questionbox = new Questionbox(this, 1092, 110);
         this.gomba = this.createGomba(gombaSpawn);
         this.flower1 = new Flower(this, FlowerZone1.start.x, FlowerZone1.start.y) ;
         this.flower2 = new Flower(this, flowerZone2.start.x, flowerZone2.start.y) ;
@@ -82,7 +95,7 @@ class Play extends Phaser.Scene {
         //colliders:
 
         platforms.setCollisionByExclusion(-1, true)
-
+   
         coins.forEach(coin => {
             this.physics.add.overlap(this.player, coin, () => {
                 this.createCoinSound();
@@ -117,6 +130,22 @@ class Play extends Phaser.Scene {
         this.physics.add.collider(this.player, this.flower2, this.onPlayerCollision, null, this)
         this.physics.add.collider(this.player, this.spikey, this.onPlayerCollision, null, this)
         this.physics.add.collider(this.player, this.gomba, this.onPlayerCollision, null, this)
+        
+        this.questionCollider = this.physics.add.collider(this.player, this.questionbox, this.smashQuestionBox, null, this)
+ 
+       
+        this.physics.add.overlap(this.player, this.clingvine, this.onVineOverlap, null, this);
+      
+
+
+
+
+
+
+
+
+       
+      
 
       
 
@@ -132,6 +161,13 @@ class Play extends Phaser.Scene {
     update() {
   
     }
+
+    smashQuestionBox() {
+        this.createCoinSound();
+        this.questionbox.releaseCoin();
+        
+    }
+ 
 
     createGameEvents() {
         EventEmitter.on('PLAYER_LOSE', () => {
@@ -240,7 +276,10 @@ class Play extends Phaser.Scene {
         this.sound.add('coin_pickup', {loop: false, volume: 0.2}).play();
     }
 
- 
+    onVineOverlap() {
+        this.player.climb();
+    }
+    
         
     
 

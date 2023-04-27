@@ -27,17 +27,19 @@ class Menu extends Phaser.Scene {
        this.background = this.add.tileSprite(0, 400, this.config.width, 250, "bg_night")
          .setOrigin(0, 0)
 
-         const playText = this.add.text(this.config.width/2-160, 300, 'Play', 
-         {fontSize: '32px', fill: '#FFF'})
+        this.headline = this.add.image(650, 150, 'headline')
+
+         const playText = this.add.text(660, 330, 'Play', 
+         {fontSize: '32px', fill: '#8a4dcf', fontFamily: "mario"})
          .setOrigin(0.5, 1)
          .setInteractive();
 
          playText.on('pointerover', () => {
-            playText.setStyle({fill: '#ff0'})
+            playText.setStyle({fill: '#6b33a9'})
         })
 
         playText.on('pointerout', () => {
-            playText.setStyle({fill: '#FFF'})
+            playText.setStyle({fill: '#8a4dcf'})
         })
 
         playText.on('pointerdown', () => {
