@@ -54,7 +54,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
          this.scene.anims.create({
             key: 'playerclimb',
             frames: this.scene.anims.generateFrameNames('climb', {prefix: 'climb', end: 4, zeroPad: 3}),
-            frameRate: 4,
+            frameRate: 9,
             repeat: -1,
         }) 
    
@@ -151,84 +151,6 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
         onFloor ? this.body.velocity.x != 0 ?
         this.play("walk", true) : this.play('idle', true) : this.play('jump', true)
- 
-           
-       
-
-       /* 
-         if(this.hasBeenHit || !this.body) {
-            return  
-        }
-
-     
-         if(this.y > 700) {
-            
-            EventEmitter.emit('PLAYER_LOSE')
-        }
- 
-        const {left, right, space, up, Q, W} = this.cursors;
-
-       
-
-        const isUpJustDown = Phaser.Input.Keyboard.JustDown(up);
-        const onFloor = this.body.onFloor();
-        let code = Event.keyCode;
-        
-
-         if (this.qKey.isDown) {
-            if(!this.play('throw', true).isPlaying) {
-                    this.play('throw', true)
-            }
-            this.play('throw', true)
-       
-        } else if(left.isDown) {
-            this.lastDirection = Phaser.Physics.Arcade.FACING_LEFT;
-            this.setVelocityX(-150)
-            this.play('walk', true)
-            this.flipX = true;
-        }
-        else if (right.isDown) {
-            this.lastDirection = Phaser.Physics.Arcade.FACING_RIGHT;
-            this.flipX = false;
-            this.setVelocityX(150);
-            this.play('walk', true)
-        } else if (up.isDown) {
-            if(this.canClimb === true) {
-                this.setVelocityY(-100);
-                this.play('playerclimb', true)
-            } else if (this.canClimb === false) {
-                if(!this.play('jump', true)) {
-                    this.play('jump', true)
-                }
-
-            }
-         
-            
-        }
-         else {
-            this.setVelocityX(0)
-            this.play('idle', true);
-        }
-
-        if(isUpJustDown && this.canClimb === false && (onFloor || this.jumpCount < this.consecutiveJumps)) {
-            this.setVelocityY(-300);
-            this.jumpCount += 1;
-        }
-       
-        if(onFloor) {
-            this.jumpCount = 0;
-        } 
-
-        if(this.anims.isPlaying && this.anims.getCurrentKey() === 'throw') {
-            return
-        } 
-
-        onFloor && this.canClimb === false ? this.body.velocity.x != 0 ?
-        this.play("walk", true) : this.play('idle', true) : this.play('jump', true) 
-        
-        this.canClimb == true? this.play('playerclimb', true) : this.play('jump', true)
-
-    */
     }
 
 

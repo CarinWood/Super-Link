@@ -12,7 +12,7 @@ import ClingVine from "../entities/Clingvine";
 import Questionbox from "../entities/Questionbox";
 import SolidBlock from "../entities/SolidBlock";
 import Mushroom from "../entities/Mushroom";
-
+import Lift from "../entities/Lift";
 
 
 
@@ -22,10 +22,10 @@ const healthX = 240;
 const healthY = 130
 
 
-class Play extends Phaser.Scene {
+class Level2 extends Phaser.Scene {
 
     constructor(config) {
-        super('Play')
+        super('level2')
         this.config = config;
         this.healthBar1 = null;
         this.healthBar2 = null;
@@ -43,16 +43,18 @@ class Play extends Phaser.Scene {
  
 
     create() {
-         this.background = this.add.tileSprite(0, 50, this.config.width, 600, "bg_night")
+         this.background = this.add.tileSprite(0, 400, this.config.width, 250, "bg_night")
          .setOrigin(0, 0)
          .setScrollFactor(0, 1)
 
         this.score = 0;
         this.alreadyJumped === false
         //Get map and tilesets:
-        const map = this.make.tilemap({key: 'level_1'})
+        const map = this.make.tilemap({key: 'level_2'})
         const tileset1 = map.addTilesetImage('OverWorld', 'tiles-1')
         const tileset2 = map.addTilesetImage('Castle', 'tiles-2')
+        const tileset3 = map.addTilesetImage('level2_tiles', 'tiles-3')
+        const tileset4 = map.addTilesetImage('misc', 'tiles-4')
        
         const playerZones = this.getPlayerZones(map.getObjectLayer('player_zones'));
         const FlowerZone1 = this.getFlowerZone1(map.getObjectLayer('enemy_spawns'));
@@ -70,9 +72,11 @@ class Play extends Phaser.Scene {
         const square = this.add.graphics();
         square.fillStyle(0x000000);
         square.fillRect(1500, 560, 40, 50);
-        this.clingvine = new ClingVine(this, 871, 290)
+        this.clingvine = new ClingVine(this, 704, 660)
+        this.clingvine2 = new ClingVine(this, 1495, 180)
         this.mushroom = new Mushroom(this, 285, 450).setVisible(false)
         this.secretBlock = new SolidBlock(this, 285, 450).setVisible(false);
+       
         
 
        
@@ -85,7 +89,7 @@ class Play extends Phaser.Scene {
         
         //Get layers:
         const environment = map.createStaticLayer('environment', [tileset1, tileset2]);
-        const platforms = map.createStaticLayer('platforms', [tileset1]);
+        const platforms = map.createStaticLayer('platforms', [tileset1, tileset3, tileset4]);
     
        
  
@@ -141,6 +145,7 @@ class Play extends Phaser.Scene {
         this.physics.add.collider(this.player, this.secretBlock, this.revealShroom, null, this)
         this.physics.add.collider(this.mushroom, platforms)
         this.physics.add.collider(this.mushroom, this.secretBlock)
+   
         
        
    
@@ -150,6 +155,7 @@ class Play extends Phaser.Scene {
  
        
         this.physics.add.overlap(this.player, this.clingvine, this.onVineOverlap, null, this);
+        this.physics.add.overlap(this.player, this.clingvine2, this.onVineOverlap, null, this);
         this.physics.add.overlap(this.player, this.mushroom, () => {
             this.createShroomSound();
             this.mushroom.disableBody(true, true)
@@ -181,15 +187,7 @@ class Play extends Phaser.Scene {
     }
 
     update() {
-        /* const isColliding = this.physics.overlap(this.player, this.questionbox);
-
-        const overlapY = this.physics.collideY(this.player, this.questionbox);
-        const isCollidingBottom = overlapY > 0;
-    
-        if (isColliding && isCollidingBottom) {
-       
-            this.smashQuestionBox();
-        } */
+     
     }
     
     revealShroom() {
@@ -271,9 +269,7 @@ class Play extends Phaser.Scene {
 
          const endLevelOverlap = this.physics.add.overlap(player, endOfLevel, () => {
             endLevelOverlap.active = false;
-            this.registry.inc('level', 1);
-            this.scene.stop();
-            this.scene.start('level2')
+          
         }) 
     }
 
@@ -351,4 +347,4 @@ class Play extends Phaser.Scene {
 
 }
 
-export default Play;
+export default Level2;

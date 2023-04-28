@@ -8,9 +8,16 @@ class Preload extends Phaser.Scene {
     }
 
     preload() {
-        this.load.tilemapTiledJSON('map', './assets/overworld.json')
+        this.load.tilemapTiledJSON('level_1', './assets/overworld.json')
+        this.load.tilemapTiledJSON('level_2', './assets/overworld2.json')
+
+
         this.load.image('tiles-1', './assets/OverWorld.png')
         this.load.image('tiles-2', './assets/Castle.png')
+        this.load.image('tiles-3', './assets/level2_tiles.png')
+        this.load.image('tiles-4', './assets/misc.png')
+
+
         this.load.image('clingvine', './assets/clingvine.png')
         this.load.atlas('player', './assets/player/pinkmonster.png', './assets/player/pinkmonster.json');
         this.load.atlas('pinkidle', './assets/player/pinkidlesheet.png', './assets/player/pinkidlesheet.json');
@@ -27,9 +34,10 @@ class Preload extends Phaser.Scene {
         this.load.image('heart', './assets/heart.png')
         this.load.image('emptyHeart', './assets/emptyHeart.png')
         this.load.image('rock', './assets/weapons/Rock1.png')
+        this.load.image('lift', './assets/lift.png')
      
    
-        this.load.image('bg_night', './assets/backgrounds/pixelsky.png');
+        this.load.image('bg_night', './assets/backgrounds/background_level_1.png');
         this.load.image('menu_bg', './assets/backgrounds/smallbanner.jpg');
         this.load.image('pink_monster', './assets/Pink_Monster.png');
         this.load.image('button', './assets/mybtn.png');
@@ -42,12 +50,15 @@ class Preload extends Phaser.Scene {
         this.load.image('mariostar', './assets/collectables/mariostar.png')
         this.load.image('greenshroom', './assets/collectables/greenshroom.png')
 
+
+      
+
     }
 
-    create() {
-        this.scene.start('Menu')
+     create() {
+        this.scene.start('Play')
         
-    }
+     }
 
 }
 
