@@ -60,7 +60,7 @@
                  "visible":true,
                  "width":0,
                  "x":128,
-                 "y":608
+                 "y":592
                 }, 
                 {
                  "height":0,
@@ -501,6 +501,32 @@
          "name":"Castle",
          "spacing":0,
          "tilecount":25,
+         "tileheight":16,
+         "tilewidth":16
+        }, 
+        {
+         "columns":25,
+         "firstgid":90,
+         "image":"level2_tiles.png",
+         "imageheight":223,
+         "imagewidth":407,
+         "margin":0,
+         "name":"level2_tiles",
+         "spacing":0,
+         "tilecount":325,
+         "tileheight":16,
+         "tilewidth":16
+        }, 
+        {
+         "columns":37,
+         "firstgid":415,
+         "image":"misc.png",
+         "imageheight":600,
+         "imagewidth":600,
+         "margin":0,
+         "name":"misc",
+         "spacing":0,
+         "tilecount":1369,
          "tileheight":16,
          "tilewidth":16
         }],

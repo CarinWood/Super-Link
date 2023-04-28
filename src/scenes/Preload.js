@@ -10,6 +10,7 @@ class Preload extends Phaser.Scene {
     preload() {
         this.load.tilemapTiledJSON('level_1', './assets/overworld.json')
         this.load.tilemapTiledJSON('level_2', './assets/overworld2.json')
+        this.load.tilemapTiledJSON('level_3', './assets/overworld3.json')
 
 
         this.load.image('tiles-1', './assets/OverWorld.png')
@@ -57,7 +58,7 @@ class Preload extends Phaser.Scene {
     }
 
      create() {
-        this.scene.start('Play')
+        this.scene.start('level3')
         
      }
 
