@@ -43,10 +43,6 @@ class Level2 extends Phaser.Scene {
  
 
     create() {
-         this.background = this.add.tileSprite(0, 400, this.config.width, 250, "bg_night")
-         .setOrigin(0, 0)
-         .setScrollFactor(0, 1)
-
         this.score = 0;
         this.alreadyJumped === false
         //Get map and tilesets:
@@ -140,12 +136,13 @@ class Level2 extends Phaser.Scene {
         })
 
 
-        this.physics.add.collider(this.player.projectiles, this.gomba, this.gombaIsShot, null, this)
+
         this.physics.add.collider(this.player.projectiles, this.koopa, this.koopaIsShot, null, this)
         this.physics.add.collider(this.player, this.flower1, this.onPlayerCollision, null, this)
         this.physics.add.collider(this.player, this.flower2, this.onPlayerCollision, null, this)
         this.physics.add.collider(this.player, this.spikey, this.onPlayerCollision, null, this)
-        this.physics.add.collider(this.player, this.gomba, this.onPlayerCollision, null, this)
+
+        this.physics.add.collider(this.player, this.koopa, this.onPlayerCollision, null, this)
         this.physics.add.collider(this.player, this.secretBlock, this.revealShroom, null, this)
      
         this.physics.add.collider(this.mushroom, platforms)
@@ -302,11 +299,7 @@ class Level2 extends Phaser.Scene {
     }
 
 
-    gombaIsShot() {
-        this.gomba.forEach(gomba => {
-           gomba.takesHit(this.player.projectiles);  
-        })
-    }
+   
     koopaIsShot() {
       this.koopa.koopaTakesHit(this.player.projectiles);
     }
