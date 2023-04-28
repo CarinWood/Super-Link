@@ -24,6 +24,7 @@ class Preload extends Phaser.Scene {
         this.load.atlas('pinkjump', './assets/player/pinkjump.png', './assets/player/pinkjump.json');
         this.load.atlas('flower', './assets/enemies/flower.png', './assets/enemies/flower.json');
         this.load.atlas('gomba', './assets/enemies/gombasheet.png', './assets/enemies/gombasheet.json');
+        this.load.atlas('koopa', './assets/enemies/koopasheet.png', './assets/enemies/koopasheet.json');
         this.load.atlas('throw', './assets/player/throwsheet.png', './assets/player/throwsheet.json');
         this.load.atlas('spikey', './assets/enemies/spikesheet.png', './assets/enemies/spikesheet.json');
         this.load.atlas('coin', './assets/collectables/coinsheet.png', './assets/collectables/coinsheet.json');

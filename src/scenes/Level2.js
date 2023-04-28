@@ -12,7 +12,7 @@ import ClingVine from "../entities/Clingvine";
 import Questionbox from "../entities/Questionbox";
 import SolidBlock from "../entities/SolidBlock";
 import Mushroom from "../entities/Mushroom";
-import Lift from "../entities/Lift";
+import Koopa from "../entities/Koopa";
 
 
 
@@ -76,6 +76,9 @@ class Level2 extends Phaser.Scene {
         this.clingvine2 = new ClingVine(this, 1495, 180)
         this.mushroom = new Mushroom(this, 285, 450).setVisible(false)
         this.secretBlock = new SolidBlock(this, 285, 450).setVisible(false);
+        this.koopa = new Koopa(this, 1282, 176);
+       
+      
        
         
 
@@ -138,13 +141,16 @@ class Level2 extends Phaser.Scene {
 
 
         this.physics.add.collider(this.player.projectiles, this.gomba, this.gombaIsShot, null, this)
+        this.physics.add.collider(this.player.projectiles, this.koopa, this.koopaIsShot, null, this)
         this.physics.add.collider(this.player, this.flower1, this.onPlayerCollision, null, this)
         this.physics.add.collider(this.player, this.flower2, this.onPlayerCollision, null, this)
         this.physics.add.collider(this.player, this.spikey, this.onPlayerCollision, null, this)
         this.physics.add.collider(this.player, this.gomba, this.onPlayerCollision, null, this)
         this.physics.add.collider(this.player, this.secretBlock, this.revealShroom, null, this)
+     
         this.physics.add.collider(this.mushroom, platforms)
         this.physics.add.collider(this.mushroom, this.secretBlock)
+        this.physics.add.collider(this.koopa, platforms)
    
         
        
@@ -187,7 +193,14 @@ class Level2 extends Phaser.Scene {
     }
 
     update() {
-     
+    
+     if(this.koopa.x < 1070) {
+      this.koopa.setVelocityX(35)
+      this.koopa.flipX = true;
+     } else if (this.koopa.x > 1281) {
+      this.koopa.setVelocityX(-35)
+      this.koopa.flipX = false;
+     }
     }
     
     revealShroom() {
@@ -291,11 +304,11 @@ class Level2 extends Phaser.Scene {
 
     gombaIsShot() {
         this.gomba.forEach(gomba => {
-           gomba.takesHit(this.player.projectiles);
-           
-          
-          
+           gomba.takesHit(this.player.projectiles);  
         })
+    }
+    koopaIsShot() {
+      this.koopa.koopaTakesHit(this.player.projectiles);
     }
 
     displayHealth(x, y, hits) {
