@@ -97,7 +97,6 @@ class Level2 extends Phaser.Scene {
         this.questionbox = new Questionbox(this, 1093, 100).setDepth(4)
         this.hiddenCoin = new Coin(this, 1093, 100).setDepth(1)
         this.solidblock = new SolidBlock(this, 1093, 100).setDepth(3);
-        //this.solidblock = this.add.image(1093, 90, 'solidblock').setScale(1.1).setDepth(1)
         this.gomba = this.createGomba(gombaSpawn);
         this.flower1 = new Flower(this, FlowerZone1.start.x, FlowerZone1.start.y) ;
         this.flower2 = new Flower(this, flowerZone2.start.x, flowerZone2.start.y) ;

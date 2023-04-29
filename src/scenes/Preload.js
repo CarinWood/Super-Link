@@ -28,6 +28,7 @@ class Preload extends Phaser.Scene {
         this.load.atlas('koopa', './assets/enemies/koopasheet.png', './assets/enemies/koopasheet.json');
         this.load.atlas('throw', './assets/player/throwsheet.png', './assets/player/throwsheet.json');
         this.load.atlas('spikey', './assets/enemies/spikesheet.png', './assets/enemies/spikesheet.json');
+        this.load.atlas('redkoopa', './assets/enemies/redkoopa.png', './assets/enemies/redkoopa.json');
         this.load.atlas('coin', './assets/collectables/coinsheet.png', './assets/collectables/coinsheet.json');
         this.load.image('question', './assets/collectables/questionbox.png');
         this.load.image('solidblock', './assets/collectables/solidblock.png');
