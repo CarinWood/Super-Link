@@ -1,5 +1,8 @@
 import Phaser from "phaser";
 import Player from "../entities/Player";
+import ClingVine from "../entities/Clingvine";
+import Flower from "../entities/Flower";
+import Projectiles from "../weapons/Projectiles";
 
 class Level3 extends Phaser.Scene {
 
@@ -24,6 +27,23 @@ class Level3 extends Phaser.Scene {
         const platforms = map.createStaticLayer('platforms', [tileset1, tileset3, tileset4]);
         platforms.setCollisionByExclusion(-1, true)
 
+        //zones
+        const FlowerZone1 = this.getFlowerZone1(map.getObjectLayer('enemy_spawns'));
+
+        //Level 3 Environment 
+        this.cage = this.add.image(100, 599, 'cage');
+        this.cage2 = this.add.image(143, 599, 'cage');
+        this.cage3 = this.add.image(683, 599, 'cage');
+        this.cage4 = this.add.image(640, 599, 'cage');
+        this.smallLight = this.add.image(75, 595, 'smallLamp')
+        this.bigLight = this.add.image(175, 587, 'bigLamp')
+        this.bigLigh2 = this.add.image(40, 587, 'bigLamp')
+        this.bigLigh3 = this.add.image(605, 587, 'bigLamp')
+        this.vine = new ClingVine(this, 512, 416)
+
+        //enemies
+        this.flower1 = new Flower(this, FlowerZone1.start.x, FlowerZone1.start.y) ;
+
 
         //player
         const playerZones = this.getPlayerZones(map.getObjectLayer('player_zones'));
@@ -32,6 +52,14 @@ class Level3 extends Phaser.Scene {
 
         //camera
         this.setupFollowCamera(this.player);
+
+        //colliders
+        this.physics.add.overlap(this.player, this.vine, this.onVineOverlap, null, this);
+        this.physics.add.collider(this.flower1, platforms);
+        this.physics.add.collider(this.flower1, this.player.projectiles, () => {
+            this.flower1.takesHit(this.player.projectiles)
+        })
+        this.physics.add.collider(this.player, this.flower1, this.onPlayerCollision, null, this)
     }
 
 
@@ -49,6 +77,25 @@ class Level3 extends Phaser.Scene {
             end: playerZones.find(zone => zone.name === 'endZone')
         }
     }
+
+    onVineOverlap() {
+        console.log('pllayer overlaps with vine')
+        this.player.climb();
+    }
+
+    getFlowerZone1(flowerZoneLayer) {
+        const FlowerZone = flowerZoneLayer.objects;
+        return {
+         start: FlowerZone.find(zone => zone.name === 'Spawn')
+        }     
+    }
+
+    onPlayerCollision() {
+        this.player.takesHit()
+        // hits++;
+        // this.displayHealth(this.healthX, this.healthY, hits)
+ 
+     }
 
 
 }

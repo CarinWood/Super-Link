@@ -36,8 +36,11 @@ class Preload extends Phaser.Scene {
         this.load.image('heart', './assets/heart.png')
         this.load.image('emptyHeart', './assets/emptyHeart.png')
         this.load.image('rock', './assets/weapons/Rock1.png')
+        
         this.load.image('lift', './assets/lift.png')
-     
+        this.load.image('cage', './assets/level_3_assets/cage.png')
+        this.load.image('smallLamp', './assets/level_3_assets/smallLight.png')
+        this.load.image('bigLamp', './assets/level_3_assets/bigLight.png')
    
         this.load.image('bg_night', './assets/backgrounds/background_level_1.png');
         this.load.image('menu_bg', './assets/backgrounds/smallbanner.jpg');
