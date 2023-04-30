@@ -11,6 +11,7 @@ class Preload extends Phaser.Scene {
         this.load.tilemapTiledJSON('level_1', './assets/overworld.json')
         this.load.tilemapTiledJSON('level_2', './assets/overworld2.json')
         this.load.tilemapTiledJSON('level_3', './assets/overworld3.json')
+        this.load.tilemapTiledJSON('level_4', './assets/overworld4.json')
 
 
         this.load.image('tiles-1', './assets/OverWorld.png')
@@ -23,9 +24,13 @@ class Preload extends Phaser.Scene {
         this.load.atlas('player', './assets/player/pinkmonster.png', './assets/player/pinkmonster.json');
         this.load.atlas('pinkidle', './assets/player/pinkidlesheet.png', './assets/player/pinkidlesheet.json');
         this.load.atlas('pinkjump', './assets/player/pinkjump.png', './assets/player/pinkjump.json');
+        
         this.load.atlas('flower', './assets/enemies/flower.png', './assets/enemies/flower.json');
         this.load.atlas('gomba', './assets/enemies/gombasheet.png', './assets/enemies/gombasheet.json');
         this.load.atlas('koopa', './assets/enemies/koopasheet.png', './assets/enemies/koopasheet.json');
+        this.load.atlas('flyingkoopa', './assets/enemies/flyingkoopa.png', './assets/enemies/flyingkoopa.json');
+        this.load.atlas('bowsersprite', './assets/enemies/bowsersheet.png', './assets/enemies/bowsersheet.json');
+       
         this.load.atlas('throw', './assets/player/throwsheet.png', './assets/player/throwsheet.json');
         this.load.atlas('spikey', './assets/enemies/spikesheet.png', './assets/enemies/spikesheet.json');
         this.load.atlas('redkoopa', './assets/enemies/redkoopa.png', './assets/enemies/redkoopa.json');

@@ -181,15 +181,7 @@ class Play extends Phaser.Scene {
     }
 
     update() {
-        /* const isColliding = this.physics.overlap(this.player, this.questionbox);
-
-        const overlapY = this.physics.collideY(this.player, this.questionbox);
-        const isCollidingBottom = overlapY > 0;
-    
-        if (isColliding && isCollidingBottom) {
-       
-            this.smashQuestionBox();
-        } */
+      
     }
     
     revealShroom() {

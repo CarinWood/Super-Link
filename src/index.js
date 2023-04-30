@@ -5,6 +5,7 @@ import Menu from "./scenes/Menu";
 import GameOver from "./scenes/GameOver";
 import Level2 from "./scenes/Level2";
 import Level3 from "./scenes/Level3";
+import Level4 from "./scenes/Level4";
 
 const MAP_WIDTH = 1600;
 
@@ -28,7 +29,7 @@ const config = {
    
     }
   },
-  scene: [new Preload(SHARED_CONFIG), new Menu(SHARED_CONFIG),  new Play(SHARED_CONFIG), new Level2(SHARED_CONFIG), new GameOver(SHARED_CONFIG), new Level3(SHARED_CONFIG)]
+  scene: [new Preload(SHARED_CONFIG), new Menu(SHARED_CONFIG),  new Play(SHARED_CONFIG), new Level2(SHARED_CONFIG), new GameOver(SHARED_CONFIG), new Level3(SHARED_CONFIG), new Level4(SHARED_CONFIG)]
 };
 
 new Phaser.Game(config);

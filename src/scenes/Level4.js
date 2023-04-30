@@ -16,10 +16,10 @@ let hits = 0;
 const healthX = 240;
 const healthY = 130
 
-class Level3 extends Phaser.Scene {
+class Level4 extends Phaser.Scene {
 
     constructor(config) {
-        super('level3')
+        super('level4')
         this.config = config;
         this.healthBar1 = null;
         this.healthBar2 = null;
@@ -29,9 +29,10 @@ class Level3 extends Phaser.Scene {
 
 
     create() {
+        console.log('this is level4')
         this.score = 0;
         this.displayHealth(healthX, healthY, hits)
-        const map = this.make.tilemap({key: 'level_3'})
+        const map = this.make.tilemap({key: 'level_4'})
         this.createGameEvents();
 
         const tileset1 = map.addTilesetImage('OverWorld', 'tiles-1')
@@ -64,9 +65,6 @@ class Level3 extends Phaser.Scene {
         this.bigLigh2 = this.add.image(40, 587, 'bigLamp')
         this.bigLigh3 = this.add.image(605, 587, 'bigLamp')
         this.vine = new ClingVine(this, 512, 416)
-        const square = this.add.graphics().setDepth(-1);
-        square.fillStyle(0x000000);
-        square.fillRect(1500, 560, 40, 50);
         const blinkingCoin = new BlinkingCoin(this, 360, 138);
         blinkingCoin.setScrollFactor(0,0)
 
@@ -255,8 +253,7 @@ class Level3 extends Phaser.Scene {
 
          const endLevelOverlap = this.physics.add.overlap(player, endOfLevel, () => {
             endLevelOverlap.active = false;
-            this.scene.stop()
-            this.scene.start('level4')
+            console.log('end of level')
           
         }) 
     }
@@ -272,4 +269,4 @@ class Level3 extends Phaser.Scene {
 
 }
 
-export default Level3
+export default Level4
