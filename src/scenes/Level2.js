@@ -189,7 +189,7 @@ class Level2 extends Phaser.Scene {
     }
 
     update() {
-    
+    // this.koopa = new Koopa(this, 1282, 176);
      if(this.koopa.x < 1070) {
       this.koopa.setVelocityX(35)
       this.koopa.flipX = true;

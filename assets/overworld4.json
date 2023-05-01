@@ -59,7 +59,7 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":48,
+                 "x":1328,
                  "y":608
                 }, 
                 {
@@ -71,9 +71,20 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":1520,
+                 "x":1568,
                  "y":608
                 }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":16,
+         "name":"bowser_spawn",
+         "objects":[],
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -376,7 +387,7 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":1392,
+                 "x":1184,
                  "y":608
                 }, 
                 {
@@ -388,7 +399,7 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":1424,
+                 "x":1216,
                  "y":608
                 }, 
                 {
@@ -544,7 +555,19 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":1360,
+                 "x":1152,
+                 "y":608
+                }, 
+                {
+                 "height":0,
+                 "id":54,
+                 "name":"bowser_spawn",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1424,
                  "y":608
                 }],
          "opacity":1,
@@ -671,8 +694,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":16,
- "nextobjectid":54,
+ "nextlayerid":17,
+ "nextobjectid":55,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.2",

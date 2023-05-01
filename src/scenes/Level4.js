@@ -11,6 +11,7 @@ import HealthBar from "../health/HealthBar";
 import Flyingkoopa from "../entities/Flyingkoopa";
 import EventEmitter from "../events/EventEmitter";
 import BlinkingCoin from "../entities/BlinkingCoin";
+import Bowser from "../entities/Bowser";
 
 let hits = 0;
 const healthX = 240;
@@ -46,12 +47,14 @@ class Level4 extends Phaser.Scene {
         platforms.setCollisionByExclusion(-1, true)
         const koopaSpawns = map.getObjectLayer('koopa_spawns')
         const flyingKoopaSpawns = map.getObjectLayer('flying_koopa_spawns')
+    
 
         //zones
         const FlowerZone1 = this.getFlowerZone1(map.getObjectLayer('enemy_spawns'));
         const flowerZone2 = this.getFlowerZone2(map.getObjectLayer('flower2_spawn'))
         const flowerZone3 = this.getFlowerZone3(map.getObjectLayer('flower3_spawn'))
         const flowerZone4 = this.getFlowerZone4(map.getObjectLayer('flower4_spawn'))
+        
         const coinSpawns = map.getObjectLayer('collectables')
 
 
@@ -76,6 +79,7 @@ class Level4 extends Phaser.Scene {
         this.flower4 = new Flower(this, flowerZone4.start.x, flowerZone4.start.y)
         const koopas = this.createKoopa(koopaSpawns)
         const flyingKoopas = this.createFlyingKoopa(flyingKoopaSpawns)
+        this.bowser = new Bowser(this, 1500, 600)
   
         //player
         const playerZones = this.getPlayerZones(map.getObjectLayer('player_zones'));
@@ -98,6 +102,7 @@ class Level4 extends Phaser.Scene {
         this.physics.add.collider(this.flower2, platforms);
         this.physics.add.collider(this.flower3, platforms);
         this.physics.add.collider(this.flower4, platforms);
+        this.physics.add.collider(this.bowser, platforms);
 
         this.physics.add.collider(this.flower1, this.player.projectiles, () => {
             this.flower1.takesHit(this.player.projectiles)
@@ -111,11 +116,16 @@ class Level4 extends Phaser.Scene {
         this.physics.add.collider(this.flower4, this.player.projectiles, () => {
             this.flower4.takesHit(this.player.projectiles)
         })
+    
+        this.physics.add.collider(this.bowser, this.player.projectiles, () => {
+            this.bowser.takesHit(this.player.projectiles)
+        })
 
         this.physics.add.collider(this.player, this.flower1, this.onPlayerCollision, null, this)
         this.physics.add.collider(this.player, this.flower2, this.onPlayerCollision, null, this)
         this.physics.add.collider(this.player, this.flower3, this.onPlayerCollision, null, this)
         this.physics.add.collider(this.player, this.flower4, this.onPlayerCollision, null, this)
+        this.physics.add.collider(this.player, this.bowser, this.onPlayerCollision, null, this)
 
         
         coins.forEach(coin => {
@@ -149,6 +159,28 @@ class Level4 extends Phaser.Scene {
 
         this.createEndOfLevel(playerZones.end, this.player);
     }
+
+    update() {
+
+ 
+            if(this.bowser.x < 1400) {
+                this.bowser.setVelocityX(30)
+            } else if (this.bowser.x > 1499) {
+                this.bowser.setVelocityX(-30)
+            }
+
+            if(this.bowser.x === 1400) {
+                this.bowser.bowserJump()
+            }
+
+            if(this.bowser.x === 1500) {
+                this.bowser.bowserJump()
+            }
+    }
+
+
+
+    
 
 
     setupFollowCamera(player) {

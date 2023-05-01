@@ -29,7 +29,7 @@ class Preload extends Phaser.Scene {
         this.load.atlas('gomba', './assets/enemies/gombasheet.png', './assets/enemies/gombasheet.json');
         this.load.atlas('koopa', './assets/enemies/koopasheet.png', './assets/enemies/koopasheet.json');
         this.load.atlas('flyingkoopa', './assets/enemies/flyingkoopa.png', './assets/enemies/flyingkoopa.json');
-        this.load.atlas('bowsersprite', './assets/enemies/bowsersheet.png', './assets/enemies/bowsersheet.json');
+        this.load.atlas('bowser_walk_sheet', './assets/enemies/bowser_walk_sheet.png', './assets/enemies/bowser_walk_sheet.json');
        
         this.load.atlas('throw', './assets/player/throwsheet.png', './assets/player/throwsheet.json');
         this.load.atlas('spikey', './assets/enemies/spikesheet.png', './assets/enemies/spikesheet.json');
@@ -39,6 +39,7 @@ class Preload extends Phaser.Scene {
         this.load.image('solidblock', './assets/collectables/solidblock.png');
         this.load.atlas('blinkingCoin', './assets/collectables/blinkingCoinSheet.png', './assets/collectables/blinkingCoinSheet.json');
         this.load.atlas('climb', './assets/player/climb.png', './assets/player/climb.json');
+        this.load.atlas('fire', './assets/weapons/firesheet.png', './assets/weapons/firesheet.json');
         this.load.image('heart', './assets/heart.png')
         this.load.image('emptyHeart', './assets/emptyHeart.png')
         this.load.image('rock', './assets/weapons/Rock1.png')
@@ -67,7 +68,7 @@ class Preload extends Phaser.Scene {
     }
 
      create() {
-        this.scene.start('level3')
+        this.scene.start('level4')
         
      }
 
