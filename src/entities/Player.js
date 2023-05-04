@@ -32,6 +32,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.wKey = this.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         this.playerHealth = 30;
         this.canClimb = false;
+        this.gameFinished = false;
         
 
       
@@ -86,7 +87,16 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.scene.events.on(Phaser.Scenes.Events.UPDATE, this.update, this)
     }
 
+    setGameFinished() {
+        this.gameFinished = true;
+        this.anims.stop('walk');
+    }
+
     update() {
+
+        if(this.gameFinished === true) {
+            return
+        }
       
         const onFloor = this.body.onFloor();
    

@@ -17,17 +17,16 @@ class Fire extends Phaser.Physics.Arcade.Sprite {
     }
 
     init() {
-        this.setScale(1.2)
+        this.setScale(1)
         this.setOrigin(0.5, 1)
-        this.setOffset(0, -1);
-   
+        this.setVelocityX(-100)
 
         this.setImmovable(true);
    
         this.scene.anims.create({
             key: 'fire_anim',
             frames: this.scene.anims.generateFrameNames('fire', {prefix: 'fire', end: 2, zeroPad: 3}),
-            frameRate: 3,
+            frameRate: 20,
             repeat: -1,
         })
         
@@ -44,10 +43,6 @@ class Fire extends Phaser.Physics.Arcade.Sprite {
 
     update(time, delta) {
        this.play('fire_anim', true)
-
-    
-
-
 
    
     }

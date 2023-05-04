@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import Fire from "../weapons/Fire";
 
 
 class Bowser extends Phaser.Physics.Arcade.Sprite {
@@ -19,9 +20,9 @@ class Bowser extends Phaser.Physics.Arcade.Sprite {
     init() {
         this.setScale(1.2)
         this.setOrigin(0.5, 1)
-        this.setGravityY(100);
+        this.setGravityY(150);
         this.setOffset(0, -1);
-        this.health = 100;
+        this.health = 500;
 
         this.setImmovable(true);
    
@@ -30,6 +31,13 @@ class Bowser extends Phaser.Physics.Arcade.Sprite {
             frames: this.scene.anims.generateFrameNames('bowser_walk_sheet', {prefix: 'bowserwalk', end: 2, zeroPad: 3}),
             frameRate: 3,
             repeat: -1,
+        })
+
+        this.scene.anims.create({
+            key: 'bowser_opens_jaw',
+            frames: this.scene.anims.generateFrameNames('bowser_jaw_sheet', {prefix: 'bowserjaw', end: 2, zeroPad: 3}),
+            frameRate: 1,
+            repeat: 1,
         })
         
     
@@ -53,13 +61,13 @@ class Bowser extends Phaser.Physics.Arcade.Sprite {
     takesHit(source) {
         source.setActive(false)
         source.setVisible(false)
-            this.decreaseHealth();
-            this.playDamageTweenBowser();
+        this.playDamageTweenBowser();
         
-
-         /*    this.setVelocity(0, -100)
+        if(this.health <= 0) {
+            this.setVelocity(0, -100)
             this.body.checkCollision.none = true;
-            this.setCollideWorldBounds(false); */
+            this.setCollideWorldBounds(false)
+        }
        
 
     }
@@ -70,10 +78,34 @@ class Bowser extends Phaser.Physics.Arcade.Sprite {
 
     bowserJump() {
         this.setVelocityY(-80);
+    
     }
 
     update(time, delta) {
        this.play('bowser_walk', true)
+
+
+       if(this.x < 1400) {
+        this.setVelocityX(30)
+    } else if (this.x > 1499) {
+        this.setVelocityX(-30)
+   
+    } 
+    
+    if (this.y < 609.2) {
+        this.play('bowser_opens_jaw', true)
+    }
+
+    if(this.x === 1400) {
+        this.bowserJump()
+
+      
+    }
+
+
+
+
+  
 
     
 

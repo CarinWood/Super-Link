@@ -18,10 +18,14 @@ class Preload extends Phaser.Scene {
         this.load.image('tiles-2', './assets/Castle.png')
         this.load.image('tiles-3', './assets/level2_tiles.png')
         this.load.image('tiles-4', './assets/misc.png')
+        this.load.image('tiles-5', './assets/world-4-tileset.png')
 
 
         this.load.image('clingvine', './assets/clingvine.png')
         this.load.atlas('player', './assets/player/pinkmonster.png', './assets/player/pinkmonster.json');
+        this.load.atlas('princess', './assets/player/princess_stand_sheet.png', './assets/player/princess_stand_sheet.json');
+        this.load.atlas('princessleft', './assets/player/left_princess_sheet.png', './assets/player/left_princess_sheet.json');
+
         this.load.atlas('pinkidle', './assets/player/pinkidlesheet.png', './assets/player/pinkidlesheet.json');
         this.load.atlas('pinkjump', './assets/player/pinkjump.png', './assets/player/pinkjump.json');
         
@@ -30,6 +34,7 @@ class Preload extends Phaser.Scene {
         this.load.atlas('koopa', './assets/enemies/koopasheet.png', './assets/enemies/koopasheet.json');
         this.load.atlas('flyingkoopa', './assets/enemies/flyingkoopa.png', './assets/enemies/flyingkoopa.json');
         this.load.atlas('bowser_walk_sheet', './assets/enemies/bowser_walk_sheet.png', './assets/enemies/bowser_walk_sheet.json');
+        this.load.atlas('bowser_jaw_sheet', './assets/enemies/bowser_jaw_sheet.png', './assets/enemies/bowser_jaw_sheet.json');
        
         this.load.atlas('throw', './assets/player/throwsheet.png', './assets/player/throwsheet.json');
         this.load.atlas('spikey', './assets/enemies/spikesheet.png', './assets/enemies/spikesheet.json');
@@ -43,6 +48,7 @@ class Preload extends Phaser.Scene {
         this.load.image('heart', './assets/heart.png')
         this.load.image('emptyHeart', './assets/emptyHeart.png')
         this.load.image('rock', './assets/weapons/Rock1.png')
+        this.load.image('jumpingflame', './assets/enemies/jumpingflame.png')
         
         this.load.image('lift', './assets/lift.png')
         this.load.image('cage', './assets/level_3_assets/cage.png')
@@ -59,6 +65,7 @@ class Preload extends Phaser.Scene {
         this.load.audio('jump_sound', './assets/audio/jump.wav')
         this.load.audio('rockThrow', './assets/audio/popsound.wav')
         this.load.audio('pick_shroom_sound', './assets/audio/pickshroom.wav')
+        this.load.audio('game_clear', './assets/audio/levelClear.mp3')
         this.load.image('mariostar', './assets/collectables/mariostar.png')
         this.load.image('greenshroom', './assets/collectables/greenshroom.png')
 
@@ -68,7 +75,7 @@ class Preload extends Phaser.Scene {
     }
 
      create() {
-        this.scene.start('level4')
+        this.scene.start('Menu')
         
      }
 
