@@ -278,6 +278,8 @@ class Level2 extends Phaser.Scene {
 
          const endLevelOverlap = this.physics.add.overlap(player, endOfLevel, () => {
             endLevelOverlap.active = false;
+            this.scene.stop();
+            this.scene.start('level3');
           
         }) 
     }

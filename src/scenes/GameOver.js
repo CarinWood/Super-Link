@@ -9,7 +9,7 @@ class GameOver extends Phaser.Scene {
     }
 
     create() {
-        const gameOverText = this.add.text(this.config.width/2-160, 300, 'Game Over', 
+        const gameOverText = this.add.text(600, 300, 'Game Over', 
         {fontSize: '32px', fill: '#FFF'})
         .setOrigin(0.5, 1)
         .setInteractive();
